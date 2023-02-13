@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { EditBtn } from 'src/components/buttons';
-import { MemoTitle } from 'src/components';
+import { EditBtn } from 'src/components/atoms/buttons';
+import { MemoTitle } from 'src/components/atoms';
 import { icons } from 'src/paths/icons';
 import '@fontsource/noto-sans-jp';
 
