@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { EditBtn } from 'src/components/atoms/buttons';
 import { MemoTitle } from 'src/components/atoms';
+import { Sidebar } from 'src/components/molecules';
 import { icons } from 'src/paths/icons';
 import '@fontsource/noto-sans-jp';
 
 function App() {
-  const [selectedMemoId, setSelectedMemoId] = useState<number>();
+  const [selectedMemoId, setSelectedMemoId] = useState<number>(1);
   const [canMenuEdit, setCanMenuEdit] = useState<boolean>(false);
 
   const selectMemo = (id: number) => {
@@ -32,35 +33,12 @@ function App() {
   return (
     <div className="App">
       <div className="grid grid-cols-5 gap-0 min-h-screen">
-        {/* サイドバー */}
-        <div className="col-span-1 pt-[30px] border-r flex flex-col justify-between">
-          {/* メモエリア */}
-          <div className=" pl-10 pr-2.5">
-            {/* サービス名 */}
-            <div className="flex items-center h-8 mb-5">
-              <img src={icons.logo} alt="logo" />
-              <p className="ml-1 text-2xl font-bold">ServiceName</p>
-            </div>
-
-            {/* メモリスト */}
-            {memoList.map((memo) => (
-              <MemoTitle
-                key={memo.id}
-                selectMemo={() => selectMemo(memo.id)}
-                title={memo.title}
-                isSelected={memo.id === selectedMemoId}
-                canMenuEdit={canMenuEdit}
-              />
-            ))}
-          </div>
-
-          {/* ボタンエリア */}
-          <div className="bg-light h-16 p-2.5 flex justify-end items-center">
-            <div className="w-20 h-10">
-              <EditBtn />
-            </div>
-          </div>
-        </div>
+        <Sidebar
+          memoList={memoList}
+          selectedMemoId={selectedMemoId}
+          canMenuEdit={canMenuEdit}
+          selectMemo={selectMemo}
+        />
 
         {/* メモ作成・編集エリア */}
         <div className="col-span-4 min-h-screen pt-[30px] px-10">
