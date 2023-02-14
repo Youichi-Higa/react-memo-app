@@ -1,16 +1,16 @@
 import { icons } from 'src/constants';
 
 type Props = {
-  UpdateMemo: () => void;
+  saveMemo: () => void;
 };
 
 export const SaveBtn = (props: Props) => {
-  const { UpdateMemo } = props;
+  const { saveMemo } = props;
 
   return (
     <button
       className="bg-primary rounded w-10 h-10 flex flex-col items-center justify-center"
-      onClick={UpdateMemo}
+      onClick={saveMemo}
     >
       <img src={icons.save} alt="logo" />
       <p className="text-[10px] text-white">Save</p>
