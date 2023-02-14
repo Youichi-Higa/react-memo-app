@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMemoList } from 'src/api';
 import { Main, Sidebar } from 'src/components/molecules';
 import '@fontsource/noto-sans-jp';
 
 function App() {
-  const [selectedMemoId, setSelectedMemoId] = useState<number>(1);
+  const [selectedMemoId, setSelectedMemoId] = useState<number>();
   const [canMenuEdit, setCanMenuEdit] = useState<boolean>(false);
 
   const selectMemo = (id: number) => {
@@ -12,6 +12,10 @@ function App() {
   };
 
   const { memoList, isLoading, isError } = useMemoList();
+
+  useEffect(() => {
+    if (memoList) selectMemo(memoList[0].id);
+  }, [memoList]);
 
   if (isLoading) return <div>loading...</div>;
   if (isError) return <div>failed to load</div>;
@@ -27,7 +31,7 @@ function App() {
             selectMemo={selectMemo}
           />
         )}
-        {memoList && <Main memo={memoList[0]} />}
+        <Main selectedMemoId={selectedMemoId} />
       </div>
     </div>
   );

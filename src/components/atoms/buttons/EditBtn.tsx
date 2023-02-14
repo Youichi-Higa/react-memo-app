@@ -1,4 +1,4 @@
-import { icons } from 'src/paths/icons';
+import { icons } from 'src/constants';
 
 export const EditBtn = () => {
   return (

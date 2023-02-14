@@ -1,12 +1,18 @@
+import { useMemoData } from 'src/api';
 import { EditBtn } from 'src/components/atoms/buttons';
 import type { Memo } from 'src/types';
 
 type Props = {
-  memo: Memo;
+  selectedMemoId?: number;
 };
 
 export const Main = (props: Props) => {
-  const { memo } = props;
+  const { selectedMemoId } = props;
+
+  const { memo, isLoading, isError } = useMemoData(selectedMemoId);
+
+  if (isLoading) return <div>loading...</div>;
+  if (isError) return <div>failed to load</div>;
 
   return (
     <>
@@ -14,7 +20,7 @@ export const Main = (props: Props) => {
         <div className="bg-light rounded-xl h-[calc(100vh_-_94px)] p-[30px]">
           {/* タイトル */}
           <div className="flex justify-between items-center mb-5">
-            <p className="text-2xl font-bold w-full">{memo.title}</p>
+            <p className="text-2xl font-bold w-full">{memo && memo.title}</p>
             <div className="w-20 h-10">
               <EditBtn />
             </div>
@@ -23,7 +29,7 @@ export const Main = (props: Props) => {
           {/* メモ */}
           <div className="h-[calc(100vh_-_214px)] flex justify-between gap-5">
             <div className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto">
-              <p>{memo.body}</p>
+              <p>{memo && memo.body}</p>
             </div>
             <div className="w-20 h-10">
               <EditBtn />
