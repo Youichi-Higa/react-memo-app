@@ -5,7 +5,6 @@ import '@fontsource/noto-sans-jp';
 
 function App() {
   const [selectedMemoId, setSelectedMemoId] = useState<number>();
-  const [canMenuEdit, setCanMenuEdit] = useState<boolean>(false);
 
   const selectMemo = (id: number) => {
     setSelectedMemoId(id);
@@ -27,7 +26,6 @@ function App() {
           <Sidebar
             memoList={memoList}
             selectedMemoId={selectedMemoId}
-            canMenuEdit={canMenuEdit}
             selectMemo={selectMemo}
           />
         )}

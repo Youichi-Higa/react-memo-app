@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { useMemoData } from 'src/api';
-import { EditBtn } from 'src/components/atoms/buttons';
-import type { Memo } from 'src/types';
+import { CancelBtn, EditBtn, SaveBtn } from 'src/components/atoms/buttons';
 
 type Props = {
   selectedMemoId?: number;
@@ -8,6 +8,23 @@ type Props = {
 
 export const Main = (props: Props) => {
   const { selectedMemoId } = props;
+
+  const [canEditTitle, setCanEditTitle] = useState<boolean>(false);
+  const [canEditBody, setCanEditBody] = useState<boolean>(false);
+
+  const turnOnTitleEditMode = () => {
+    setCanEditTitle(true);
+  };
+  const turnOffTitleEditMode = () => {
+    setCanEditTitle(false);
+  };
+
+  const turnOnBodyEditMode = () => {
+    setCanEditBody(true);
+  };
+  const turnOffBodyEditMode = () => {
+    setCanEditBody(false);
+  };
 
   const { memo, isLoading, isError } = useMemoData(selectedMemoId);
 
@@ -21,8 +38,18 @@ export const Main = (props: Props) => {
           {/* タイトル */}
           <div className="flex justify-between items-center mb-5">
             <p className="text-2xl font-bold w-full">{memo && memo.title}</p>
-            <div className="w-20 h-10">
-              <EditBtn />
+            {/* ボタンエリア */}
+            <div className="w-[90px] h-10">
+              {canEditTitle ? (
+                // 編集中に表示
+                <div className="flex gap-2.5">
+                  <CancelBtn turnOffEditMode={turnOffTitleEditMode} />
+                  <SaveBtn UpdateMemo={turnOffTitleEditMode} />
+                </div>
+              ) : (
+                // 通常時に表示
+                <EditBtn turnOnEditMode={turnOnTitleEditMode} />
+              )}
             </div>
           </div>
 
@@ -31,8 +58,17 @@ export const Main = (props: Props) => {
             <div className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto">
               <p>{memo && memo.body}</p>
             </div>
-            <div className="w-20 h-10">
-              <EditBtn />
+            <div className="w-[90px] h-10">
+              {canEditBody ? (
+                // 編集中に表示
+                <div className="flex gap-2.5">
+                  <CancelBtn turnOffEditMode={turnOffBodyEditMode} />
+                  <SaveBtn UpdateMemo={turnOffBodyEditMode} />
+                </div>
+              ) : (
+                // 通常時に表示
+                <EditBtn turnOnEditMode={turnOnBodyEditMode} />
+              )}
             </div>
           </div>
         </div>
