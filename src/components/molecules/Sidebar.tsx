@@ -1,10 +1,10 @@
 import { EditBtn } from 'src/components/atoms/buttons';
 import { MemoTitle } from 'src/components/atoms';
 import { icons } from 'src/paths/icons';
-import type { MemoList } from 'src/types';
+import type { Memo } from 'src/types';
 
 type Props = {
-  memoList: MemoList[];
+  memoList: Memo[];
   selectedMemoId: number;
   canMenuEdit: boolean;
   selectMemo: (id: number) => void;

@@ -1,12 +1,12 @@
 import { EditBtn } from 'src/components/atoms/buttons';
-import type { MemoList } from 'src/types';
+import type { Memo } from 'src/types';
 
 type Props = {
-  memoList: MemoList[];
+  memo: Memo;
 };
 
 export const Main = (props: Props) => {
-  const { memoList } = props;
+  const { memo } = props;
 
   return (
     <>
@@ -14,7 +14,7 @@ export const Main = (props: Props) => {
         <div className="bg-light rounded-xl h-[calc(100vh_-_94px)] p-[30px]">
           {/* タイトル */}
           <div className="flex justify-between items-center mb-5">
-            <p className="text-2xl font-bold w-full">{memoList[0].title}</p>
+            <p className="text-2xl font-bold w-full">{memo.title}</p>
             <div className="w-20 h-10">
               <EditBtn />
             </div>
@@ -23,7 +23,7 @@ export const Main = (props: Props) => {
           {/* メモ */}
           <div className="h-[calc(100vh_-_214px)] flex justify-between gap-5">
             <div className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto">
-              <p>{memoList[0].body}</p>
+              <p>{memo.body}</p>
             </div>
             <div className="w-20 h-10">
               <EditBtn />
