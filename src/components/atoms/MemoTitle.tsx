@@ -5,10 +5,11 @@ type Props = {
   selectMemo: () => void;
   isSelected: boolean;
   canEditMenu: boolean;
+  removeMemo: () => Promise<void>;
 };
 
 export const MemoTitle = (props: Props) => {
-  const { title, selectMemo, isSelected, canEditMenu } = props;
+  const { title, selectMemo, isSelected, canEditMenu, removeMemo } = props;
 
   return (
     <>
@@ -19,7 +20,7 @@ export const MemoTitle = (props: Props) => {
             <p className="text-base text-primary font-bold">{title}</p>
           </div>
           <div className="w-6 ml-2.5 cursor-pointer">
-            {canEditMenu && <img src={icons.delete} alt="logo" />}
+            {canEditMenu && <img src={icons.delete} alt="delete" onClick={removeMemo} />}
           </div>
         </div>
       ) : (
@@ -29,7 +30,7 @@ export const MemoTitle = (props: Props) => {
             <p className="text-base">{title}</p>
           </div>
           <div className="w-6 ml-2.5 cursor-pointer">
-            {canEditMenu && <img src={icons.delete} alt="logo" />}
+            {canEditMenu && <img src={icons.delete} alt="delete" onClick={removeMemo} />}
           </div>
         </div>
       )}

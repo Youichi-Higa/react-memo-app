@@ -1,5 +1,5 @@
 import { useSWRConfig } from 'swr';
-import { addNewMemo } from 'src/api';
+import { addNewMemo, deleteMemo } from 'src/api';
 import { AddBtn, EditBtn, DoneBtn } from 'src/components/atoms/buttons';
 import { MemoTitle } from 'src/components/atoms';
 import { apiUrl, icons } from 'src/constants';
@@ -20,6 +20,12 @@ export const Sidebar = (props: Props) => {
 
   const saveNewMemo = async () => {
     await addNewMemo();
+    mutate(apiUrl); // メモ一覧のデータを再フェッチ
+  };
+  
+  const removeMemo = async (id: number) => {
+    if (selectedMemoId === undefined) return;
+    await deleteMemo(id);
     mutate(apiUrl); // メモ一覧のデータを再フェッチ
   };
 
@@ -49,6 +55,7 @@ export const Sidebar = (props: Props) => {
               title={memo.title}
               isSelected={memo.id === selectedMemoId}
               canEditMenu={canEditMenu}
+              removeMemo={() => removeMemo(memo.id)}
             />
           ))}
         </div>
