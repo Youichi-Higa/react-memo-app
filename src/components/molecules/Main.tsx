@@ -19,18 +19,30 @@ const defaultValue = {
 export const Main = (props: Props) => {
   const { selectedMemoId, canEditTitle, setCanEditTitle, canEditBody, setCanEditBody } = props;
 
+  // 選択されているメモのデータをDBから取得
   const { memo, isLoading, isError } = useMemoData(selectedMemoId);
 
+  // 編集モードの際に表示するメモのデータで、保存ボタン押下時にDBに送信される
   const [editedMemo, setEditedMemo] = useState<Pick<Memo, 'title' | 'body'>>(defaultValue);
 
   const editTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditedMemo({ ...editedMemo, title: event.target.value });
   };
 
-  const saveMemo = () => {
+  const editBody = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setEditedMemo({ ...editedMemo, body: event.target.value });
+  };
+
+  const saveTitle = () => {
     if (selectedMemoId === undefined) return;
     updateMemo(selectedMemoId, editedMemo);
     turnOffTitleEditMode();
+  };
+
+  const saveBody = () => {
+    if (selectedMemoId === undefined) return;
+    updateMemo(selectedMemoId, editedMemo);
+    turnOffBodyEditMode();
   };
 
   // タイトル編集モードを切り替える関数
@@ -49,6 +61,7 @@ export const Main = (props: Props) => {
     setCanEditBody(false);
   };
 
+  // DBから取得したデータをeditedMemoに保存
   useEffect(() => {
     if (memo) {
       setEditedMemo({
@@ -78,11 +91,7 @@ export const Main = (props: Props) => {
                 <div className="w-[90px] h-10">
                   <div className="flex gap-2.5">
                     <CancelBtn turnOffEditMode={turnOffTitleEditMode} />
-                    <SaveBtn
-                      saveMemo={() => {
-                        saveMemo();
-                      }}
-                    />
+                    <SaveBtn saveMemo={saveTitle} />
                   </div>
                 </div>
               </>
@@ -100,21 +109,33 @@ export const Main = (props: Props) => {
 
           {/* メモ */}
           <div className="h-[calc(100vh_-_214px)] flex justify-between gap-5">
-            <div className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto">
-              <p>{memo?.body}</p>
-            </div>
-            <div className="w-[90px] h-10">
-              {canEditBody ? (
-                // 編集中に表示
-                <div className="flex gap-2.5">
-                  <CancelBtn turnOffEditMode={turnOffBodyEditMode} />
-                  <SaveBtn saveMemo={saveMemo} />
+            {canEditBody ? (
+              <>
+                <textarea
+                  className="w-full h-full rounded-xl  pt-[30px] px-[30px]"
+                  onChange={editBody}
+                >
+                  {memo?.body}
+                </textarea>
+                <div className="w-[90px] h-10">
+                  <div className="flex gap-2.5">
+                    <CancelBtn turnOffEditMode={turnOffBodyEditMode} />
+                    <SaveBtn saveMemo={saveBody} />
+                  </div>
                 </div>
-              ) : (
-                // 通常時に表示
-                <EditBtn turnOnEditMode={turnOnBodyEditMode} />
-              )}
-            </div>
+              </>
+            ) : (
+              <>
+                <p className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto">
+                  {memo?.body}
+                </p>
+                <div className="w-[90px] h-10">
+                  <div className="flex gap-2.5">
+                    <EditBtn turnOnEditMode={turnOnBodyEditMode} />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
 

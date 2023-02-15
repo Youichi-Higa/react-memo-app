@@ -8,6 +8,7 @@ import '@fontsource/noto-sans-jp';
 function App() {
   const { mutate } = useSWRConfig();
 
+  // メモ一覧のデータをDBから取得
   const { memoList, initialId, isLoading, isError } = useMemoList();
 
   const [canEditTitle, setCanEditTitle] = useState<boolean>(false);
@@ -19,7 +20,7 @@ function App() {
     setSelectedMemoId(id);
   };
 
-  //初回マウント時に初期値のメモを設定
+  //初回マウント時に一番上のメモを選択状態にする
   useEffect(() => {
     selectMemo(initialId);
   }, [initialId]);
