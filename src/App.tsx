@@ -11,10 +11,10 @@ function App() {
   // メモ一覧のデータをDBから取得
   const { memoList, initialId, isLoading, isError } = useMemoList();
 
+  const [selectedMemoId, setSelectedMemoId] = useState<number | undefined>(initialId);
+  const [canEditMenu, setCanEditMenu] = useState<boolean>(false);
   const [canEditTitle, setCanEditTitle] = useState<boolean>(false);
   const [canEditBody, setCanEditBody] = useState<boolean>(false);
-  const [selectedMemoId, setSelectedMemoId] = useState<number | undefined>(initialId);
-  console.log(initialId);
 
   const selectMemo = (id?: number) => {
     setSelectedMemoId(id);
@@ -24,7 +24,6 @@ function App() {
   useEffect(() => {
     selectMemo(initialId);
   }, [initialId]);
-
 
   // 編集モードの切り替え時にデータを再フェッチ
   useEffect(() => {
@@ -40,7 +39,13 @@ function App() {
       <div className="grid grid-cols-5 gap-0 min-h-screen">
         {/* サイドバー */}
         {memoList && (
-          <Sidebar memoList={memoList} selectedMemoId={selectedMemoId} selectMemo={selectMemo} />
+          <Sidebar
+            memoList={memoList}
+            selectedMemoId={selectedMemoId}
+            canEditMenu={canEditMenu}
+            setCanEditMenu={setCanEditMenu}
+            selectMemo={selectMemo}
+          />
         )}
 
         {/* メインエリア */}
