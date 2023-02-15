@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useSWRConfig } from 'swr';
+import { addNewMemo } from 'src/api';
 import { AddBtn, EditBtn, DoneBtn } from 'src/components/atoms/buttons';
 import { MemoTitle } from 'src/components/atoms';
-import { icons } from 'src/constants';
+import { apiUrl, icons } from 'src/constants';
 import type { Memo } from 'src/types';
 
 type Props = {
@@ -14,6 +15,13 @@ type Props = {
 
 export const Sidebar = (props: Props) => {
   const { memoList, selectedMemoId, canEditMenu, setCanEditMenu, selectMemo } = props;
+
+  const { mutate } = useSWRConfig();
+
+  const saveNewMemo = async () => {
+    await addNewMemo();
+    mutate(apiUrl); // メモ一覧のデータを再フェッチ
+  };
 
   const turnOnMenuEditMode = () => {
     setCanEditMenu(true);
@@ -49,7 +57,7 @@ export const Sidebar = (props: Props) => {
         <div className="bg-light h-16 pr-2.5 flex justify-end items-center">
           {canEditMenu ? (
             <div className="pl-10 flex justify-between w-full">
-              <AddBtn addNewPage={turnOnMenuEditMode} />
+              <AddBtn addNewPage={saveNewMemo} />
               <DoneBtn saveMemoList={turnOffMenuEditMode} />
             </div>
           ) : (
