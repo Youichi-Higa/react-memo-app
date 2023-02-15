@@ -61,14 +61,19 @@ export const Main = (props: Props) => {
     setCanEditBody(false);
   };
 
-  // DBから取得したデータをeditedMemoに保存
+  // 選択されているメモが変更される度に実行
   useEffect(() => {
+    // DBからデータを取得し、editedMemoに保存
     if (memo) {
       setEditedMemo({
         title: memo.title,
         body: memo.body,
       });
     }
+
+    // 編集モードをOFFにする
+    turnOffTitleEditMode();
+    turnOffBodyEditMode();
   }, [memo]);
 
   if (isLoading) return <div>loading...</div>;
@@ -126,7 +131,7 @@ export const Main = (props: Props) => {
               </>
             ) : (
               <>
-                <p className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto">
+                <p className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto whitespace-pre-wrap">
                   {memo?.body}
                 </p>
                 <div className="w-[90px] h-10">
