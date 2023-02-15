@@ -1,10 +1,19 @@
 import { icons } from 'src/constants';
 
-export const EditBtn = () => {
+type Props = {
+  turnOnEditMode: () => void;
+};
+
+export const EditBtn = (props: Props) => {
+  const { turnOnEditMode } = props;
+
   return (
-    <button className="bg-primary rounded w-full h-full flex flex-col items-center justify-center">
+    <button
+      className="bg-primary rounded w-[90px] h-10 flex flex-col items-center justify-center"
+      onClick={turnOnEditMode}
+    >
       <img src={icons.edit} alt="logo" />
-      <p className="text-xs text-white">Edit</p>
+      <p className="text-[10px] text-white">Edit</p>
     </button>
   );
 };
