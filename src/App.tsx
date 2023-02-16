@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 import { useMemoList } from 'src/api';
 import { apiUrl } from 'src/constants';
-import { Main, Sidebar } from 'src/components/molecules';
+import { Main, Sidebar } from 'src/components/organisms';
 import '@fontsource/noto-sans-jp';
 
 function App() {
