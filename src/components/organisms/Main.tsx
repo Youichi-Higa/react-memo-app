@@ -77,8 +77,8 @@ export const Main = (props: Props) => {
   if (isError) return <div>failed to load</div>;
 
   return (
-    <div className="col-span-4 min-h-screen pt-[30px] px-10">
-      <div className="bg-light rounded-xl h-[calc(100vh_-_94px)] p-[30px]">
+    <div className="col-span-4 pt-[30px] px-10">
+      <div className="bg-light rounded-xl p-[30px]">
         <MemoTitle
           title={memo?.title}
           canEditTitle={canEditTitle}
@@ -87,7 +87,7 @@ export const Main = (props: Props) => {
           turnOnTitleEditMode={turnOnTitleEditMode}
           turnOffTitleEditMode={turnOffTitleEditMode}
         />
-        
+
         <MemoBody
           body={memo?.body}
           canEditBody={canEditBody}
@@ -97,7 +97,7 @@ export const Main = (props: Props) => {
           turnOffBodyEditMode={turnOffBodyEditMode}
         />
       </div>
-      
+
       <Footer />
     </div>
   );

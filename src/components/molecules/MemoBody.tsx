@@ -13,7 +13,7 @@ export const MemoBody = (props: Props) => {
   const { body, canEditBody, editBody, saveBody, turnOnBodyEditMode, turnOffBodyEditMode } = props;
 
   return (
-    <div className="h-[calc(100vh_-_214px)] flex justify-between gap-5">
+    <div className="h-[calc(100vh_-_30px_-_60px_-_44px_-_20px_-_64px)] flex justify-between gap-5">
       {canEditBody ? (
         <>
           <textarea className="w-full h-full rounded-xl  pt-[30px] px-[30px]" onChange={editBody}>

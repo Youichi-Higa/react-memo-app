@@ -15,7 +15,7 @@ export const MemoTitle = (props: Props) => {
     <>
       {isSelected ? (
         // 選択時に表示
-        <div className="flex justify-between items-center min-h-[44px] px-2 bg-light rounded">
+        <div className="flex justify-between items-center h-11 px-2 bg-light rounded">
           <div className="w-full cursor-pointer">
             <p className="text-base text-primary font-bold">{title}</p>
           </div>
@@ -25,7 +25,7 @@ export const MemoTitle = (props: Props) => {
         </div>
       ) : (
         // 通常時に表示
-        <div className="flex justify-between items-center min-h-[44px] px-2">
+        <div className="flex justify-between items-center h-11 px-2">
           <div className="w-full cursor-pointer" onClick={selectMemo}>
             <p className="text-base">{title}</p>
           </div>
