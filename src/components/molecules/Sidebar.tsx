@@ -1,29 +1,46 @@
-import { useState } from 'react';
-import { EditBtn } from 'src/components/atoms/buttons';
+import { useSWRConfig } from 'swr';
+import { addNewMemo, deleteMemo } from 'src/api';
+import { AddBtn, EditBtn, DoneBtn } from 'src/components/atoms/buttons';
 import { MemoTitle } from 'src/components/atoms';
-import { icons } from 'src/constants';
+import { apiUrl, icons } from 'src/constants';
 import type { Memo } from 'src/types';
 
 type Props = {
   memoList: Memo[];
   selectedMemoId?: number;
+  setCanEditMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  canEditMenu: boolean;
   selectMemo: (id: number) => void;
 };
 
 export const Sidebar = (props: Props) => {
-  const { memoList, selectedMemoId, selectMemo } = props;
+  const { memoList, selectedMemoId, canEditMenu, setCanEditMenu, selectMemo } = props;
 
-  const [canEditMenu, setCanEditMenu] = useState<boolean>(false);
+  const { mutate } = useSWRConfig();
+
+  const saveNewMemo = async () => {
+    await addNewMemo();
+    mutate(apiUrl); // メモ一覧のデータを再フェッチ
+  };
+  
+  const removeMemo = async (id: number) => {
+    if (selectedMemoId === undefined) return;
+    await deleteMemo(id);
+    mutate(apiUrl); // メモ一覧のデータを再フェッチ
+  };
 
   const turnOnMenuEditMode = () => {
     setCanEditMenu(true);
+  };
+  const turnOffMenuEditMode = () => {
+    setCanEditMenu(false);
   };
 
   return (
     <>
       <div className="col-span-1 pt-[30px] border-r border-slate-100 flex flex-col justify-between">
         {/* メモエリア */}
-        <div className=" pl-10 pr-2.5">
+        <div className="pl-10 pr-2.5">
           {/* サービス名 */}
           <div className="flex items-center h-8 mb-5">
             <img src={icons.logo} alt="logo" />
@@ -38,13 +55,21 @@ export const Sidebar = (props: Props) => {
               title={memo.title}
               isSelected={memo.id === selectedMemoId}
               canEditMenu={canEditMenu}
+              removeMemo={() => removeMemo(memo.id)}
             />
           ))}
         </div>
 
         {/* ボタンエリア */}
-        <div className="bg-light h-16 p-2.5 flex justify-end items-center">
-          <EditBtn turnOnEditMode={turnOnMenuEditMode} />
+        <div className="bg-light h-16 pr-2.5 flex justify-end items-center">
+          {canEditMenu ? (
+            <div className="pl-10 flex justify-between w-full">
+              <AddBtn addNewPage={saveNewMemo} />
+              <DoneBtn saveMemoList={turnOffMenuEditMode} />
+            </div>
+          ) : (
+            <EditBtn turnOnEditMode={turnOnMenuEditMode} />
+          )}
         </div>
       </div>
     </>

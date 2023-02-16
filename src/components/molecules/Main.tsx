@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { updateMemo, useMemoData } from 'src/api';
 import { CancelBtn, EditBtn, SaveBtn } from 'src/components/atoms/buttons';
+import { defaultMenu } from 'src/constants';
 import type { Memo } from 'src/types';
 
 type Props = {
@@ -11,11 +12,6 @@ type Props = {
   setCanEditBody: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const defaultValue = {
-  title: 'タイトル',
-  body: 'コンテンツ',
-};
-
 export const Main = (props: Props) => {
   const { selectedMemoId, canEditTitle, setCanEditTitle, canEditBody, setCanEditBody } = props;
 
@@ -23,7 +19,7 @@ export const Main = (props: Props) => {
   const { memo, isLoading, isError } = useMemoData(selectedMemoId);
 
   // 編集モードの際に表示するメモのデータで、保存ボタン押下時にDBに送信される
-  const [editedMemo, setEditedMemo] = useState<Pick<Memo, 'title' | 'body'>>(defaultValue);
+  const [editedMemo, setEditedMemo] = useState<Pick<Memo, 'title' | 'body'>>(defaultMenu);
 
   const editTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditedMemo({ ...editedMemo, title: event.target.value });
