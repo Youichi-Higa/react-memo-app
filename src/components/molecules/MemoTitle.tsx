@@ -34,9 +34,7 @@ export const MemoTitle = (props: Props) => {
         <>
           <p className="text-2xl font-bold w-full pl-[30px] py-1.5">{title}</p>
           <div className="w-[90px] h-10">
-            <div className="flex gap-2.5">
-              <EditBtn turnOnEditMode={turnOnTitleEditMode} />
-            </div>
+            <EditBtn turnOnEditMode={turnOnTitleEditMode} />
           </div>
         </>
       )}

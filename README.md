@@ -7,7 +7,7 @@
 - SWR
 - TailwindCSS
 ## 実行手順
-ローカルでこちらのバックエンドAPIが起動している状態で実行
+ローカルで[こちら](https://github.com/ncdcdev/recruit-frontend)のバックエンドAPIが起動している状態で実行
 ```bash
 # インストール
 $ npm install
