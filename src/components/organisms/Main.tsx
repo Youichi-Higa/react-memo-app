@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { updateMemo, useMemoData } from 'src/api';
 import { CancelBtn, EditBtn, SaveBtn } from 'src/components/atoms/buttons';
+import { MemoTitle } from 'src/components/molecules';
 import { defaultMenu } from 'src/constants';
 import type { Memo } from 'src/types';
 
@@ -76,76 +77,54 @@ export const Main = (props: Props) => {
   if (isError) return <div>failed to load</div>;
 
   return (
-    <>
-      <div className="col-span-4 min-h-screen pt-[30px] px-10">
-        <div className="bg-light rounded-xl h-[calc(100vh_-_94px)] p-[30px]">
-          {/* タイトル */}
-          <div className="flex justify-between items-center gap-5 mb-5">
-            {canEditTitle ? (
-              <>
-                <input
-                  type="text"
-                  className="text-2xl font-bold w-full pl-[30px] py-1.5"
-                  defaultValue={memo?.title}
-                  onChange={editTitle}
-                />
-                <div className="w-[90px] h-10">
-                  <div className="flex gap-2.5">
-                    <CancelBtn turnOffEditMode={turnOffTitleEditMode} />
-                    <SaveBtn saveMemo={saveTitle} />
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <p className="text-2xl font-bold w-full pl-[30px] py-1.5">{memo?.title}</p>
-                <div className="w-[90px] h-10">
-                  <div className="flex gap-2.5">
-                    <EditBtn turnOnEditMode={turnOnTitleEditMode} />
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
+    <div className="col-span-4 min-h-screen pt-[30px] px-10">
+      <div className="bg-light rounded-xl h-[calc(100vh_-_94px)] p-[30px]">
+        <MemoTitle
+          title={memo?.title}
+          canEditTitle={canEditTitle}
+          editTitle={editTitle}
+          saveTitle={saveTitle}
+          turnOnTitleEditMode={turnOnTitleEditMode}
+          turnOffTitleEditMode={turnOffTitleEditMode}
+        />
 
-          {/* メモ */}
-          <div className="h-[calc(100vh_-_214px)] flex justify-between gap-5">
-            {canEditBody ? (
-              <>
-                <textarea
-                  className="w-full h-full rounded-xl  pt-[30px] px-[30px]"
-                  onChange={editBody}
-                >
-                  {memo?.body}
-                </textarea>
-                <div className="w-[90px] h-10">
-                  <div className="flex gap-2.5">
-                    <CancelBtn turnOffEditMode={turnOffBodyEditMode} />
-                    <SaveBtn saveMemo={saveBody} />
-                  </div>
+        {/* メモ */}
+        <div className="h-[calc(100vh_-_214px)] flex justify-between gap-5">
+          {canEditBody ? (
+            <>
+              <textarea
+                className="w-full h-full rounded-xl  pt-[30px] px-[30px]"
+                onChange={editBody}
+              >
+                {memo?.body}
+              </textarea>
+              <div className="w-[90px] h-10">
+                <div className="flex gap-2.5">
+                  <CancelBtn turnOffEditMode={turnOffBodyEditMode} />
+                  <SaveBtn saveMemo={saveBody} />
                 </div>
-              </>
-            ) : (
-              <>
-                <p className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto whitespace-pre-wrap">
-                  {memo?.body}
-                </p>
-                <div className="w-[90px] h-10">
-                  <div className="flex gap-2.5">
-                    <EditBtn turnOnEditMode={turnOnBodyEditMode} />
-                  </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto whitespace-pre-wrap">
+                {memo?.body}
+              </p>
+              <div className="w-[90px] h-10">
+                <div className="flex gap-2.5">
+                  <EditBtn turnOnEditMode={turnOnBodyEditMode} />
                 </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* フッター */}
-        <div className="h-16 flex justify-between items-center">
-          <p className="text-xs">Copyright © 2021 Sample</p>
-          <p className="text-xs">運営会社</p>
+              </div>
+            </>
+          )}
         </div>
       </div>
-    </>
+
+      {/* フッター */}
+      <div className="h-16 flex justify-between items-center">
+        <p className="text-xs">Copyright © 2021 Sample</p>
+        <p className="text-xs">運営会社</p>
+      </div>
+    </div>
   );
 };
