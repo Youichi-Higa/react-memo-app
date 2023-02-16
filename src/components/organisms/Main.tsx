@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { updateMemo, useMemoData } from 'src/api';
-import { CancelBtn, EditBtn, SaveBtn } from 'src/components/atoms/buttons';
-import { MemoTitle } from 'src/components/molecules';
+import { MemoBody, MemoTitle } from 'src/components/molecules';
 import { defaultMenu } from 'src/constants';
 import type { Memo } from 'src/types';
 
@@ -87,37 +86,14 @@ export const Main = (props: Props) => {
           turnOnTitleEditMode={turnOnTitleEditMode}
           turnOffTitleEditMode={turnOffTitleEditMode}
         />
-
-        {/* メモ */}
-        <div className="h-[calc(100vh_-_214px)] flex justify-between gap-5">
-          {canEditBody ? (
-            <>
-              <textarea
-                className="w-full h-full rounded-xl  pt-[30px] px-[30px]"
-                onChange={editBody}
-              >
-                {memo?.body}
-              </textarea>
-              <div className="w-[90px] h-10">
-                <div className="flex gap-2.5">
-                  <CancelBtn turnOffEditMode={turnOffBodyEditMode} />
-                  <SaveBtn saveMemo={saveBody} />
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto whitespace-pre-wrap">
-                {memo?.body}
-              </p>
-              <div className="w-[90px] h-10">
-                <div className="flex gap-2.5">
-                  <EditBtn turnOnEditMode={turnOnBodyEditMode} />
-                </div>
-              </div>
-            </>
-          )}
-        </div>
+        <MemoBody
+          body={memo?.body}
+          canEditBody={canEditBody}
+          editBody={editBody}
+          saveBody={saveBody}
+          turnOnBodyEditMode={turnOnBodyEditMode}
+          turnOffBodyEditMode={turnOffBodyEditMode}
+        />
       </div>
 
       {/* フッター */}
