@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="grid grid-cols-5 gap-0 min-h-screen">
+      <div className="grid grid-cols-5 gap-0 h-screen">
         {memoList && (
           <Sidebar
             memoList={memoList}

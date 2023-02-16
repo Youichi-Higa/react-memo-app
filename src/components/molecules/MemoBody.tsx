@@ -28,13 +28,11 @@ export const MemoBody = (props: Props) => {
         </>
       ) : (
         <>
-          <p className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-auto whitespace-pre-wrap">
+          <p className="w-full rounded-xl bg-white pt-[30px] px-[30px] overflow-y-auto whitespace-pre-wrap">
             {body}
           </p>
           <div className="w-[90px] h-10">
-            <div className="flex gap-2.5">
-              <EditBtn turnOnEditMode={turnOnBodyEditMode} />
-            </div>
+            <EditBtn turnOnEditMode={turnOnBodyEditMode} />
           </div>
         </>
       )}

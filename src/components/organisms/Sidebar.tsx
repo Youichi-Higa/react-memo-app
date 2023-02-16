@@ -45,16 +45,18 @@ export const Sidebar = (props: Props) => {
           <p className="ml-1 text-2xl font-bold">ServiceName</p>
         </div>
 
-        {memoList.map((memo) => (
-          <MemoTitle
-            key={memo.id}
-            selectMemo={() => selectMemo(memo.id)}
-            title={memo.title}
-            isSelected={memo.id === selectedMemoId}
-            canEditMenu={canEditMenu}
-            removeMemo={() => removeMemo(memo.id)}
-          />
-        ))}
+        <div className="h-[calc(100vh_-_30px_-_32px_-_20px_-_64px)] overflow-y-auto">
+          {memoList.map((memo) => (
+            <MemoTitle
+              key={memo.id}
+              selectMemo={() => selectMemo(memo.id)}
+              title={memo.title}
+              isSelected={memo.id === selectedMemoId}
+              canEditMenu={canEditMenu}
+              removeMemo={() => removeMemo(memo.id)}
+            />
+          ))}
+        </div>
       </div>
 
       <MemoListEditButtons
