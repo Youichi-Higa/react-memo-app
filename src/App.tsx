@@ -37,7 +37,6 @@ function App() {
   return (
     <div className="App">
       <div className="grid grid-cols-5 gap-0 min-h-screen">
-        {/* サイドバー */}
         {memoList && (
           <Sidebar
             memoList={memoList}
@@ -48,7 +47,6 @@ function App() {
           />
         )}
 
-        {/* メインエリア */}
         <Main
           selectedMemoId={selectedMemoId}
           canEditTitle={canEditTitle}

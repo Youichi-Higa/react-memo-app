@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { updateMemo, useMemoData } from 'src/api';
+import { Footer } from 'src/components/atoms';
 import { MemoBody, MemoTitle } from 'src/components/molecules';
 import { defaultMenu } from 'src/constants';
 import type { Memo } from 'src/types';
@@ -86,6 +87,7 @@ export const Main = (props: Props) => {
           turnOnTitleEditMode={turnOnTitleEditMode}
           turnOffTitleEditMode={turnOffTitleEditMode}
         />
+        
         <MemoBody
           body={memo?.body}
           canEditBody={canEditBody}
@@ -95,12 +97,8 @@ export const Main = (props: Props) => {
           turnOffBodyEditMode={turnOffBodyEditMode}
         />
       </div>
-
-      {/* フッター */}
-      <div className="h-16 flex justify-between items-center">
-        <p className="text-xs">Copyright © 2021 Sample</p>
-        <p className="text-xs">運営会社</p>
-      </div>
+      
+      <Footer />
     </div>
   );
 };
